@@ -1,0 +1,22 @@
+﻿@model OnlineShop.Models.MenuFilterViewModel
+
+@using (Html.BeginForm("BookListFilter", "Main", FormMethod.Get, new { @class = "mt-4" }))
+{
+    @Html.HiddenFor(x => x.Genre)
+    <div class="form-group">
+        <b>Order by:</b>
+        @Html.DropDownListFor(x => x.SortItem, Model.SortList, new { @class = "form-control", @style = "width: auto", @Value = Model.SortItem })
+    </div>
+    <div class="form-group">
+        <b>Price</b>
+        <div class="d-flex">
+            <label>From:</label>
+            <label class="mx-auto">To:</label>
+        </div>
+        <div class="d-flex justify-content-between">
+            @Html.TextBoxFor(x => x.MinPrice, new { @class = "form-control", @Value = Model.MinPrice.ToString("f2"), @required = true, @style = "width: 130px" })
+            @Html.TextBoxFor(x => x.MaxPrice, new { @class = "form-control", @Value = Model.MaxPrice.ToString("f2"), @required = true, @style = "width: 130px" })
+        </div>
+    </div>
+    <input type="submit" class="btn btn-outline-primary" value="Apply" />
+}

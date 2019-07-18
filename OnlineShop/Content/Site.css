@@ -1,24 +1,107 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿
+a {
+    text-decoration: none !important;
+    color: inherit;
+    transition: 500ms all;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    a:hover {
+        color: #6c757d;
+        transition: 650ms all;
+    }
+
+.custom-header {
+    background-color: #151515;
+    position: relative;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+    .custom-header a {
+        transition: 500ms all;
+        color: #fff;
+    }
+
+        .custom-header a:hover {
+            color: #909090;
+            transition: 650ms all;
+        }
+
+.navbar-brand {
+    font-size: 40px;
+    color: #fff;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.dropdown-menu a {
+    color: #000;
+}
+
+body {
+    background: #f9f9f9;
+    padding-bottom: 0;
+    padding-top: 0;
+    overflow-x: hidden;
+}
+
+.card {
+    height: 450px;
+    transition: 450ms all;
+}
+
+    .card:hover {
+        transform: scale(1.03);
+        transition: 650ms all;
+    }
+
+    .card img {
+        height: 200px;
+        width: auto;
+    }
+
+    .card .card-footer {
+        background: #fff;
+        height: 70px;
+    }
+
+        .card .card-footer .btn {
+            font-size: 20px;
+            text-transform: uppercase;
+            height: 100%;
+        }
+
+.price {
+    position: absolute;
+    bottom: 80px;
+}
+
+.menu-with-border {
+    width: 135%;
+    height: 100%;
+    min-height: 89vh;
+    background: #f9f9f9;
+}
+
+    .menu-with-border .menu-button {
+        font-size: 22px;
+        width: 100%;
+    }
+
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
 }

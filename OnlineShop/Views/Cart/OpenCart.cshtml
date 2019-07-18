@@ -1,0 +1,82 @@
+﻿@model OnlineShop.Infrastructure.Cart
+
+@{
+    ViewBag.Title = "Your Cart";
+}
+
+<div class="container my-4">
+    <div class="d-inline-flex">
+        <a href="~/Main/BookList">Home <i>></i>&nbsp;</a>
+        <a>Cart</a>
+    </div>
+    <hr />
+    <table class="table table-responsive-md" style="background: #fff;">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="cartTable">
+            @foreach (var item in Model.TotalCart)
+            {
+                <tr>
+                    <td class="text-center">
+                        <img class="img-thumbnail" src="~/Content/Photo/Book.png" height="200" width="140" />
+                    </td>
+                    <td class="text-left">
+                        @item.Book.Name
+                    </td>
+                    <td class="text-left">
+                        @using (Ajax.BeginForm("SetAmountForBook", "Cart", new AjaxOptions { HttpMethod = "post", OnSuccess = "AjaxUpdatePage" }))
+    {
+                            @Html.Hidden("bookId", item.Book.BookId)
+                    <input type="number" class="form-control" name="amount" min="1" max="20" value=@item.Amount required onchange="ShowUpdateBtn('#showBtn@(item.Book.BookId)')" style="width: 70px;" />
+                    <input type="submit" class="btn btn-outline-primary" value="Apply" style="display: none;" id="showBtn@(item.Book.BookId)"/>
+}
+                    </td>
+                    <td class="text-left">
+                        @item.Book.Price.ToString("c")
+                    </td>
+                    <td>
+                        @using (Ajax.BeginForm("RemoveBookFromCart", new AjaxOptions { OnSuccess = "AjaxUpdatePage" }))
+                        {
+                            @Html.Hidden("bookId", item.Book.BookId)
+                            <input type="submit" class="btn btn-danger" value="Delete" />
+                        }
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="font-weight-bold">Total: $@Model.TotalPrice()</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <a href="~/Main/BookList" class="btn btn-primary">Back</a>
+        @if (Model.TotalCart.Count() == 0)
+        {
+            <a href="##" class="btn btn-light disabled">Checkout</a>
+        }
+        else
+        {
+            <a href="~/Cart/Checkout" class="btn btn-success">Checkout</a>
+        }
+    </div>
+</div>
+<script>
+    function AjaxUpdatePage(data) {
+        window.location.reload();
+    }
+    function ShowUpdateBtn(showBtn) {
+        $(showBtn).show();
+    }
+</script>

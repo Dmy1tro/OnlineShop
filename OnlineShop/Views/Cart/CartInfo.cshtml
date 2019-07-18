@@ -1,0 +1,10 @@
+﻿@model OnlineShop.Infrastructure.Cart
+
+<ul class="navbar-nav d-flex text-white justify-content-between">
+    <li class="nav-item">
+        <b>Your cart:</b>
+        @Model.TotalCart.Sum(x => x.Amount) books,
+        @Model.TotalPrice().ToString("c")
+        <a href="~/Cart/OpenCart" class="btn btn-success">Cart</a>
+    </li>
+</ul>

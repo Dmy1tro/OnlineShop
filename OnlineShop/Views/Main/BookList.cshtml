@@ -1,0 +1,72 @@
+﻿@model OnlineShop.Models.BooksListViewModel
+
+@{
+    ViewBag.Title = "Main";
+}
+
+<div class="row">
+    <div class="col-2">
+        <div class="container pt-4 menu-with-border shadow">
+            @Html.Action(actionName: "MenuItems", controllerName: "Menu")
+            @Html.Action(actionName: "FilterMenu", controllerName: "Menu")
+        </div>
+    </div>
+    <div class="col-10">
+        <div class="container my-4">
+            <div class="row mb-2">
+                @foreach (var item in Model.Books)
+                {
+                    <div class="col-md-4 p-2">
+                        <div class="card">
+                            <img class="card-img-top mx-auto" src="~/Content/Photo/Book.png" alt="Card image" />
+                            <hr class="mb-0" />
+                            <div class="card-body">
+                                <h4 class="card-title"><a href="#">@item.Name</a></h4>
+                                <p class="card-text font-weight-bold price">Price: @item.Price.ToString("c")</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                @if (Model.BooksInCart.Contains(item.BookId))
+                                {
+                                    <div class="alert alert-success">
+                                        <strong>
+                                            Added to your
+                                            <u data-toggle="tooltip" title="Go to your cart">
+                                                <a href="~/Cart/OpenCart" class="alert-link">Cart</a>
+                                            </u>
+                                        </strong>
+                                    </div>
+                                }
+                                else
+                                {
+                                    using (Ajax.BeginForm("AddToCart", "Cart", null, new AjaxOptions { HttpMethod = "post", UpdateTargetId = "cartInfoToUpdate" }, new { @id = $"Form{item.BookId}" }))
+                                    {
+                                        @Html.Hidden("bookId", item.BookId)
+                                        <input type="submit" class="btn btn-outline-success d-block buy-btn" value="Add to Cart" onclick="ShowAndHideFucn('#Form@(item.BookId)', '#AddedToCart@(item.BookId)')" />
+                                    }
+                                    <div id="AddedToCart@(item.BookId)" class="alert alert-success" style="display: none;">
+                                        <strong>
+                                            Added to your
+                                            <u data-toggle="tooltip" title="Go to your cart">
+                                                <a href="~/Cart/OpenCart" class="alert-link">Cart</a>
+                                            </u>
+                                        </strong>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="float-right">
+                @Html.PageLinks(Model.Pagination, x => Url.Action("BookList", new { page = x }))
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ShowAndHideFucn(formId, divId) {
+        $(formId).hide();
+        $(divId).show();
+    }
+</script>
+

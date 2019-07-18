@@ -1,0 +1,34 @@
+﻿@model OnlineShop.Models.OrderDetailsViewModel
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<div class="container my-4">
+    <div class="d-inline-flex">
+        <a href="~/Main/BookList">Home <i>></i>&nbsp;</a>
+        <a href="~/Cart/OpenCart">Cart <i>></i>&nbsp;</a>
+        <a>Checkout</a>
+    </div>
+    <hr />
+    <h2>Checkout</h2>
+    <p>Contact details</p>
+    @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
+    {
+        foreach (var property in ViewData.ModelMetadata.Properties)
+        {
+            if (property.PropertyName != "Cart")
+            {
+                <label>@(property.DisplayName ?? property.PropertyName)</label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control", @required = true })
+                @Html.ValidationMessage(property.PropertyName)
+            }
+        }
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group mt-2">
+            <a class="btn btn-primary" href="~/Cart/OpenCart">Back</a>
+            <input class="btn btn-success" type="submit" value="Continue" />
+        </div>
+    }
+</div>
+

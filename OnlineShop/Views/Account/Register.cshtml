@@ -1,0 +1,43 @@
+﻿@model OnlineShop.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="container my-4">
+    <h2>Registration</h2>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName)
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @style = "width:35%", @placeholder = "Username" })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @style = "width:35%", @placeholder = "Email" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password)
+                @Html.PasswordFor(x => x.Password, new { @class = "form-control", @style = "width:35%", @placeholder = "Password" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmPassword)
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @style = "width:35%", @placeholder = "Repeat password" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+        </div>
+        <hr />
+        <b>
+            <a href="~/Account/Login" class="btn btn-link">Log in</a>
+        </b>
+    }
+</div>
+

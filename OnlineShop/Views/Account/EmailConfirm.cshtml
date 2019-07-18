@@ -1,0 +1,18 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Email Confirm";
+}
+
+<div class="container">
+    @if (ViewBag.EmailError == null)
+    {
+        <h2>Complete!</h2>
+        <h3>На почтовый адрес '@Model' Вам высланы дальнейшие инструкции по завершению регистрации</h3>
+    }
+    else
+    {
+        <h2>Error!</h2>
+        <h3>ViewBag.EmailError</h3>
+    }
+</div>

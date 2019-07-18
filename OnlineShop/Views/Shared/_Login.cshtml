@@ -1,0 +1,28 @@
+﻿<ul class="navbar-nav">
+    @if (Request.IsAuthenticated)
+    {
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Hello @User.Identity.Name
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="~/Account/UserOrders">My orders</a>
+                <a class="dropdown-item" href="~/Account/UserProfile">My profile</a>
+                @using (Ajax.BeginForm("Logout", "Account", null, new AjaxOptions { }, new { @id = "logoutForm" }))
+                {
+                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                }
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item mx-auto">
+            <a class="nav-link" href="~/Account/Login">Log in <i class="fas fa-sign-in-alt"></i></a>
+        </li>
+        <li class="nav-item mx-auto">
+            <a class="nav-link" href="~/Account/Register">Register <i class="fas fa-user"></i></a>
+        </li>
+    }
+</ul>

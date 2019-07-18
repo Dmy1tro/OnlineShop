@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Ninject;
+using Ninject.Modules;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using OnlineShop.Infrastructure;
+using Ninject.Web.Mvc;
 
 namespace OnlineShop
 {
@@ -16,6 +16,12 @@ namespace OnlineShop
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
+
+            //Dependency Resolver
+            NinjectModule registrations = new DependencyInjection();
+            var kernel = new StandardKernel(registrations);
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }
 }

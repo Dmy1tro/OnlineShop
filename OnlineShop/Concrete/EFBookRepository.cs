@@ -4,22 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
+using System.Data.Entity;
 
 namespace OnlineShop.Concrete
 {
     public class EFBookRepository : IBookDbRepository
     {
         private ShopDatabaseContext context = new ShopDatabaseContext();
-        public IQueryable<Book> Books => context.Books.Include("Genre").AsNoTracking();
+        public IQueryable<Book> Books => context.Books.Include(x => x.Genre).AsNoTracking();
 
         public IQueryable<Genre> Genres => context.Genres.AsNoTracking();
 
         public IQueryable<OrderHeader> OrderHeaders => context.OrderHeaders.AsNoTracking();
 
         public IQueryable<OrderHeader> OrderHeadersWithDetails => context.OrderHeaders
-            .Include("OrderDetails")
-            .Include("OrderDetails.Book")
+            .Include(x => x.OrderDetails.Select(o => o.Book))
             .AsNoTracking();
 
         public IQueryable<OrderDetail> OrderDetails => context.OrderDetails.AsNoTracking();
@@ -88,7 +87,7 @@ namespace OnlineShop.Concrete
         public string SaveUser(User user)
         {
             User dbUser = Users.FirstOrDefault(x => x.UserName.Equals(user.UserName));
-            User dbEmailUser = Users.SingleOrDefault(x => x.Email.Equals(user.Email));
+            User dbEmailUser = Users.FirstOrDefault(x => x.Email.Equals(user.Email));
             if (dbUser != null && dbUser.UserId != user.UserId)
                 return $"User with this username '{user.UserName}' already exist";
             if (dbEmailUser != null && dbEmailUser.UserId != user.UserId)

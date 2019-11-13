@@ -112,7 +112,7 @@ namespace OnlineShop.Controllers
         }
         public ViewResult Completed(string email)
         {
-            return View(email);
+            return View(model: email);
         }
     }
 }

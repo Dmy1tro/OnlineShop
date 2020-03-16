@@ -1,16 +1,23 @@
 ﻿using OnlineShop.Abstract;
-using OnlineShop.Models;
+using OnlineShop.Entities;
+using OnlineShop.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data.Entity;
 
 namespace OnlineShop.Concrete
 {
     public class EFBookRepository : IBookDbRepository
     {
-        private ShopDatabaseContext context = new ShopDatabaseContext();
+        private readonly EFDbContext context;
+
+        public EFBookRepository()
+        {
+            this.context = new EFDbContext();
+        }
+
         public IQueryable<Book> Books => context.Books.Include(x => x.Genre).AsNoTracking();
 
         public IQueryable<Genre> Genres => context.Genres.AsNoTracking();
@@ -27,7 +34,9 @@ namespace OnlineShop.Concrete
 
         public Dictionary<string, int> GetGenresCount()
         {
-            return Genres.ToDictionary(x => x.GenreName, x => x.Books.Count);
+            return Genres
+                .Include(x => x.Books)
+                .ToDictionary(x => x.GenreName, x => x.Books.Count() );
         }
 
         public async Task SavePurchase(OrderDetailsViewModel model)

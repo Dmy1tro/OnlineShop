@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using OnlineShop.Abstract;
+using OnlineShop.ViewModels;
+using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Web;
-using OnlineShop.Abstract;
-using OnlineShop.Models;
 
 namespace OnlineShop.Concrete
 {
@@ -31,7 +28,9 @@ namespace OnlineShop.Concrete
                 smtp.Port = 587;
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential("escobar.tipson@gmail.com", "rfat_gnfx");
+
                 smtp.Send(message);
+
             }
         }
 
@@ -41,12 +40,12 @@ namespace OnlineShop.Concrete
             {
                 MailAddress from = new MailAddress("escobar.tipson@gmail.com", "OnlineShop");
                 MailAddress to = new MailAddress(orderInfo.Email);
-                
+
                 StringBuilder strBuilder = new StringBuilder();
                 strBuilder.AppendLine("Your order")
                     .AppendLine("-------")
                     .AppendLine("Books:");
-                foreach(var item in orderInfo.Cart.TotalCart)
+                foreach (var item in orderInfo.Cart.TotalCart)
                 {
                     var totalItemPrice = item.Amount * item.Book.Price;
                     strBuilder.AppendFormat("{0} x {1} total: {2:c}\n", item.Amount, item.Book.Name, totalItemPrice);

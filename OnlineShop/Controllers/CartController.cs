@@ -1,12 +1,10 @@
-﻿using OnlineShop.Infrastructure;
-using OnlineShop.Abstract;
-using OnlineShop.Models;
-using System;
-using System.Collections.Generic;
+﻿using OnlineShop.Abstract;
+using OnlineShop.Entities;
+using OnlineShop.Infrastructure;
+using OnlineShop.ViewModels;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace OnlineShop.Controllers
 {
@@ -35,7 +33,7 @@ namespace OnlineShop.Controllers
             {
                 cart.AddBook(book, 1);
             }
-            return PartialView("CartInfo",  cart);
+            return PartialView("CartInfo", cart);
         }
 
         [HttpPost]
@@ -102,7 +100,7 @@ namespace OnlineShop.Controllers
             {
                 await repository.SavePurchase(model);
             }
-            await Task.Run(() => 
+            await Task.Run(() =>
             {
                 DependencyResolver.Current.GetService<IOrderProcessor>().SendShoppingInfo(model);
                 cart.Clear();

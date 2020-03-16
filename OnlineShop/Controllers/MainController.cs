@@ -1,10 +1,10 @@
-﻿using System;
+﻿using OnlineShop.Abstract;
+using OnlineShop.Entities;
+using OnlineShop.Infrastructure;
+using OnlineShop.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using OnlineShop.Models;
 using System.Web.Mvc;
-using OnlineShop.Abstract;
-using OnlineShop.Infrastructure;
 
 namespace OnlineShop.Controllers
 {
@@ -32,8 +32,8 @@ namespace OnlineShop.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = string.IsNullOrEmpty(genre) ? 
-                        repository.Books.Count() : 
+                    TotalItems = string.IsNullOrEmpty(genre) ?
+                        repository.Books.Count() :
                         repository.Books.Where(x => x.Genre.GenreName.Equals(genre)).Count()
                 }
             };

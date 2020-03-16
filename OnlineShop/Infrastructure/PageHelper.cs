@@ -1,4 +1,4 @@
-﻿using OnlineShop.Models;
+﻿using OnlineShop.ViewModels;
 using System;
 using System.Text;
 using System.Web.Mvc;

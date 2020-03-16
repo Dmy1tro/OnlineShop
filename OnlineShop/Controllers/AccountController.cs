@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using OnlineShop.Abstract;
+using OnlineShop.Entities;
 using OnlineShop.Infrastructure;
-using OnlineShop.Abstract;
-using OnlineShop.Models;
+using OnlineShop.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
-using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
 {
@@ -153,7 +151,7 @@ namespace OnlineShop.Controllers
             TempData["message"] = "Changes saved";
             FormsAuthentication.SignOut();
             FormsAuthentication.SetAuthCookie(user.UserName, false);
-            return RedirectToAction(actionName:"UserProfile");
+            return RedirectToAction(actionName: "UserProfile");
         }
     }
 }

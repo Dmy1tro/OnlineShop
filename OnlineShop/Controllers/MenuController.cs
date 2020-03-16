@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OnlineShop.Abstract;
+using OnlineShop.ViewModels;
 using System.Linq;
-using OnlineShop.Abstract;
-using OnlineShop.Models;
 using System.Web.Mvc;
 
 namespace OnlineShop.Controllers
@@ -21,8 +19,14 @@ namespace OnlineShop.Controllers
 
         public PartialViewResult FilterMenu(MenuFilterViewModel model)
         {
-            model.MinPrice = model.MinPrice == 0 ? repository.Books.Min(x => x.Price) : model.MinPrice;
-            model.MaxPrice = model.MaxPrice == 0 ? repository.Books.Max(x => x.Price) : model.MaxPrice;
+            model.MinPrice = model.MinPrice == 0 
+                ? repository.Books.Min(x => (int?)x.Price) ?? 0 
+                : model.MinPrice;
+
+            model.MaxPrice = model.MaxPrice == 0 
+                ? repository.Books.Max(x => (int?)x.Price) ?? 10_000 
+                : model.MaxPrice;
+
             return PartialView(model);
         }
     }

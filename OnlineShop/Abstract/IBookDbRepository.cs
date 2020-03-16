@@ -1,7 +1,7 @@
-﻿using OnlineShop.Models;
+﻿using OnlineShop.Entities;
+using OnlineShop.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Abstract

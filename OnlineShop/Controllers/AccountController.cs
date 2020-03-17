@@ -25,7 +25,6 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(Cart cart, LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -68,7 +67,6 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -93,7 +91,6 @@ namespace OnlineShop.Controllers
         }
 
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public ActionResult CheckLinkFromEmail(Cart cart, int userId, string email)
         {
             if (repository.ConfirmUser(userId, email))

@@ -30,7 +30,6 @@ namespace OnlineShop.Concrete
                 smtp.Credentials = new NetworkCredential("escobar.tipson@gmail.com", "rfat_gnfx");
 
                 smtp.Send(message);
-
             }
         }
 
